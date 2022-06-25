@@ -1,15 +1,14 @@
-// const socketController =
-
-// module.exports = socketController;
+import { Server } from 'socket.io';
 
 class Sockets {
-  constructor(io) {
-    this.io = io;
+  #io: Server;
+  constructor(io: Server) {
+    this.#io = io;
     this.socketEvents();
   }
 
   socketEvents() {
-    this.io.on('connection', (socket) => {
+    this.#io.on('connection', (socket) => {
       // socket.emit('message', {
       //   message: 'Bienvenido al chat',
       //   date: new Date(),
@@ -18,10 +17,10 @@ class Sockets {
         console.log(payload);
         // io para emitir el mensaje a todos los clientes
         // socket para emitir el mensaje solo a un cliente
-        this.io.emit('mensaje-from-server', payload);
+        this.#io.emit('mensaje-from-server', payload);
       });
     });
   }
 }
 
-module.exports = Sockets;
+export default Sockets;
